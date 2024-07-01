@@ -7,6 +7,7 @@
 #include "Calculator.h"
 #include <Console.h>
 #include <DataReader.h>
+#include <Menu.h>
 
 int AddOne(int localNumber)
 {
@@ -24,6 +25,22 @@ void print(const std::vector<std::string>& names)
 
 int main()
 {
+    Menu menu;
+    menu.AddMenuItem("Cheeseburger Pizza");
+    menu.AddMenuItem("Pineapple Pizza");
+    menu.AddMenuItem("Caesar Salad");
+
+    int itemCount = menu.ItemCount();
+
+    std::cout << "Number of menu items: " << itemCount << "\n";
+
+    menu.PrintMenu();
+    bool removed = menu.RemoveMenuItem(10);
+    if (removed) std::cout << "Item was removed.\n";
+    else std::cout << "Item was NOT removed.\n";
+    menu.PrintMenu();
+
+
     Console::ResizeWindow(150, 30);
     DataReader dataReader;
     //
