@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "../../Day01/Day01/Menu.h"
+#include <iomanip>
 
 bool postFix(std::string& hero)
 {
@@ -36,8 +38,75 @@ void printInfo(const std::vector<int>& scores)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
+void FillGrades(std::vector<float>& course)
+{
+    srand((unsigned int)time(NULL));
+    for (size_t i = 0; i < 10; i++)
+    {
+        //% modulo. returns remainder of a division
+        course.push_back(rand() % 10001 / 100.f);
+    }
+
+}
+void PrintGrades(const std::vector<float>& course)
+{
+    std::cout << "\nPG2 2407\n";
+    for (auto& grade : course)
+    {
+        std::cout << std::setw(7) << std::right << grade << "\n";
+    }
+}
+void CalculateStats(const std::vector<float>& course, float& minGrade, float& maxGrade)
+{
+    minGrade = maxGrade = course[0];
+    for (size_t i = 1; i < course.size(); i++)
+    {
+        if (course[i] > maxGrade) maxGrade = course[i];
+        else if (course[i] < minGrade) minGrade = course[i];
+        //or...
+        //maxGrade = std::max(maxGrade, course[i]);
+        //minGrade = std::min(minGrade, course[i]);
+    }
+}
+
 int main()
 {
+    Menu cafe;
+    std::string item = "fries";
+    cafe.AddMenuItem("Burger", 10.99f);
+    std::cout << "\nmemory address of item: " << &item << "\n";
+    cafe.AddMenuItem(item, 1.49f);
+
+    std::vector<std::string> names{ "Pancakes","Waffles","French Toast","Omelette","Bacon" };
+    std::vector<float> prices{ 4.99F,5.99f,8.99F,9.99f,2.99f };
+    cafe.AddMenuItems(names, prices);
+    cafe.PrintMenu();
+    std::cin.get();
+    //-------------------------------------------------//
+    //                                                 //
+    // Copy the Menu files from Day01 to Day02 project //
+    //                                                 //
+    //-------------------------------------------------//
+
+    //DAY 02 (pass by reference, const, removing in a loop)
+    // 
+    //Fields to add:
+    // add prices vector to class
+    // 
+    //Methods to add:
+    //
+    //Add menu items (vector of names, vector of prices)
+    // should it return anything? 
+    // does it need data passed to it? 
+    // 
+    //Remove items (price threshold) -- remove all items that are priced above the threshold
+    // should it return anything? 
+    // does it need data passed to it? 
+    // 
+    //go back and apply const to prior methods where applicable
+
+
+
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -61,7 +130,22 @@ int main()
             2) add 10 grades to the vector
 
     */
+
+    /*
+        CHALLENGE 2:
+
+            Write a method to calculate the stats on a vector of grades
+            1) create a method to calculate the min, max. 
+                pass the grades vector as a const reference. Use ref parameters for min and max.
+            2) call the method in main and print out the min, max.
+
+    */
     std::vector<float> grades;
+    FillGrades(grades);
+    PrintGrades(grades);
+    float min, max;
+    CalculateStats(grades, min, max);
+    std::cout << "Min: " << min << "\nMax: " << max << "\n";
 
 
 
@@ -79,16 +163,6 @@ int main()
     float avg = average(highScores);
 
 
-
-    /*
-        CHALLENGE 2:
-
-            Write a method to calculate the stats on a vector of grades
-            1) create a method to calculate the min, max. 
-                pass the grades vector as a const reference. Use ref parameters for min and max.
-            2) call the method in main and print out the min, max.
-
-    */
 
 
 
