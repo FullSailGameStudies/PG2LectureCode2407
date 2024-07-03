@@ -158,8 +158,17 @@ int main()
         This is the way you pass by reference and prevent the method from changing the variable.
     */
     std::vector<int> highScores;
-    for (int i = 0; i < 10; ++i)
-        highScores.push_back(rand());
+    highScores.reserve(20);
+    //size: # of items in the vector
+    //capacity: size of internal array
+    printInfo(highScores);//size? 0?  capacity? 0? 1? -1? maxint?
+    for (int i = 0; i < 20; ++i)
+    {
+        highScores.push_back(rand() % 5000);
+        printInfo(highScores);//size? 1  capacity? 1?
+    }//size: 14 capacity? 18?
+    highScores.erase(highScores.begin() + 14);//erase 15th item
+    printInfo(highScores);
     float avg = average(highScores);
 
 
@@ -180,15 +189,44 @@ int main()
         erase(starting position, ending position) - removes a range of elements. the end position is not erased.
 
     */
+    std::cout << "\nBEFORE ERASE...\n";
     print(highScores);
 
-    for (size_t i = 0; i < highScores.size();)
+    //for (size_t i = 0; i < highScores.size();i++)
+    //{
+    //    if (highScores[i] < 2500)
+    //    {
+    //        highScores.erase(highScores.begin() + i);
+    //        i--;
+    //    }
+    //}
+    //for (size_t i = 0; i < highScores.size();)
+    //{
+    //    if (highScores[i] < 2500)
+    //    {
+    //        highScores.erase(highScores.begin() + i);
+    //    }
+    //    else
+    //        i++;
+    //}
+    //for (int i = highScores.size() - 1; i >= 0; i--)
+    //{
+    //    if (highScores[i] < 2500)
+    //    {
+    //        highScores.erase(highScores.begin() + i);
+    //    }
+    //}
+    for (auto iter = highScores.begin(); iter != highScores.end(); )
     {
-        if (highScores[i] < 2500)
-            highScores.erase(highScores.begin() + i);
+        if (*iter < 2500)
+        {
+            iter = highScores.erase(iter);
+        }
         else
-            ++i;
+            iter++;
     }
+    std::cout << "\nAFTER ERASE...\n";
+    print(highScores);
 
 
     /*
