@@ -17,7 +17,23 @@ std::string toUpper(const std::string& original)
 
 void recursiveLoop(int N)
 {
-    recursiveLoop(N + 1);
+    //exit condition
+    //if (N >= 100) return;
+
+    if (N < 100)
+    {
+        std::cout << N << "\n";
+        recursiveLoop(N + 1);
+        std::cout << N << "\n";
+    }
+}
+void Bats(int i = 0)
+{
+    if (i < 100)
+    {
+        std::cout << (char)78 << (char)65 << ' ';
+        Bats(i + 1);
+    }
 }
 
 unsigned long factorial(unsigned int N)
@@ -92,7 +108,7 @@ void bubbleSort(std::vector<std::string>& A)
         {
             //if A[i - 1] > A[i] then
             int comparison = _stricmp(A[i - 1].c_str(), A[i].c_str());
-            //if (A[i - 1] > A[i])//case sensistive
+            //if (A[i - 1] > A[i])//case sensitive
             if(comparison > 0)//case insensitive
             {
                 //TODO: fix this later
@@ -122,7 +138,7 @@ int main()
         std::cout << nummie << " ";
     std::cout << "\n";
 
-    std::cin.get();
+    //std::cin.get();
 
     std::vector<std::string> names = { "Wonder Woman", "Superman", "Batman", "Flash", "Aquaman" };
     for (auto& name : names)
@@ -132,7 +148,7 @@ int main()
     //print the sorted vector.
     for (auto& name : names)
         std::cout << name << "\n";
-    std::cin.get();
+    //std::cin.get();
     /*
         ╔═════════╗
         ║Recursion║
@@ -159,10 +175,12 @@ int main()
             }
     */
     //call Bats here.
+    Bats();
 
     char c[] = { '\n', 66, 65, 84, 77, 65, 78, 33, 33 };
     for (auto ch : c) std::cout << ch;
 
+    std::cin.get();
 
 
     /*
