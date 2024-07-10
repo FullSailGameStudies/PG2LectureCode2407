@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iomanip>
 
 enum class Weapon
 {
@@ -25,6 +26,16 @@ int LinearSearch(std::vector<int> numbersToSearch, int searchNumber)
         }
     }
     return foundIndex;
+}
+
+void PrintCourse(const std::map<std::string,float>& grades)
+{
+    std::cout << "\nPG2 2407\n";
+    for (auto& [student, grade] : grades)
+    {
+        std::cout << std::setw(20) << std::left << student;
+        std::cout << std::setw(8) << std::right << grade << "\n";
+    }
 }
 
 int main()
@@ -95,16 +106,87 @@ int main()
     dorasBackpack[Weapon::Axe] = 7;//simply overwrites the value if the key is already in the map
 
 
+
+
+    std::map<std::string, double> menu;
+
+    //2 ways to add to a map:
+    //  1) map[key] = value;  -- overwrites existing value
+    //  2) map.insert(pair); -- will NOT overwrite
+
+    //keys are unique (meaning only 1)
+    //menu[0] = 5.99; doesn't work.
+    menu["Pineapple Pizza"] = 14.99;//x-small
+    menu["Pineapple Pizza"] = 17.99;//x-small
+    menu["Breadsticks"] = 4.99;
+
+    //pair has 2 parts: first and second
+    auto pair = std::make_pair("Caesar's Salad", 8.99);
+    menu.insert(pair);
+    auto result = menu.insert(pair);
+    //result.first is the iterator to the pair in the map
+    //result.second is a bool. true if inserted, false if NOT inserted
+    if (result.second)
+        std::cout << "The item was inserted.\n";
+    else
+        std::cout << "The item was already in the map.\n";
+
+    std::cout << "\nIterator for loop\n";
+    for (auto iter = menu.begin(); iter != menu.end(); iter++)
+    {
+        //iterator points to a key-value pair
+        //iterator->first is the key
+        //iterator->second is the value
+        const std::string& menuItem = iter->first;
+        double price = iter->second;
+        std::cout << std::setw(20) << std::left << menuItem;
+        std::cout << std::setw(7) << std::right << price << "\n";
+    }
+    std::cout << "\nrange-based for loop\n";
+    for (auto& [menuItem, price] : menu)
+    {
+        std::cout << std::setw(20) << std::left << menuItem;
+        std::cout << std::setw(7) << std::right << price << "\n";
+    }
+    std::cin.get();
+
+
     /*
         CHALLENGE 2:
 
-            Create a map that stores names (string) and grades. Call the variable grades.
+            Create a map that stores names (string) and numeric grades. 
+            Call the variable grades.
             Add students and grades to your map.
 
     */
+    srand(time(NULL));
+    std::map<std::string, float> grades;
+    grades["Gianni"] = rand() % 10001 / 100.0F;
+    grades["Austin"] = rand() % 10001 / 100.0F;
+    grades["Jorge"] = rand() % 10001 / 100.0F;
+    grades["Delvin"] = rand() % 10001 / 100.0F;
+    grades["Hemant"] = rand() % 10001 / 100.0F;
+    grades["Raymond"] = rand() % 10001 / 100.0F;
+    grades["Stephan"] = rand() % 10001 / 100.0F;
+    grades["Jerry"] = rand() % 10001 / 100.0F;
+    grades["Michael"] = rand() % 10001 / 100.0F;
+    grades["Orlinda"] = rand() % 10001 / 100.0F;
+    grades["Travis"] = rand() % 10001 / 100.0F;
+
+    /*for (size_t i = 0; i < grades.size(); i++)
+    {
+        float grade = grades.at(i);
+    }*/
+    PrintCourse(grades);
+    std::cin.get();
 
 
+    /*
+        CHALLENGE 4:
 
+            Loop over your grades map and print each student name and grade.
+
+    */
 
 
 
@@ -141,13 +223,6 @@ int main()
     }
 
 
-    /*
-        CHALLENGE 4:
-
-            Loop over your grades map and print each student name and grade.
-
-    */
-
 
 
     /*
@@ -174,6 +249,17 @@ int main()
     }
 
 
+    std::cout << "\n\nFinding keys...\n";
+    std::string keyToFind = "Dino Nuggies";
+    //double itemPrice = menu[keyToFind];//???
+    auto isFoundIterator = menu.find(keyToFind);
+    if (isFoundIterator == menu.end()) //means NOT FOUND
+        std::cout << keyToFind << " is not on the menu. Try McDonald's!\n";
+    else
+    {
+        std::cout << keyToFind << " costs " << isFoundIterator->second << "\n";
+    }
+
 
     /*
         CHALLENGE 5:
@@ -183,7 +269,26 @@ int main()
             else print out a message that the student was not found
 
     */
+    while (true)
+    {
+        PrintCourse(grades);
+        std::string studentName;
+        std::cout << "Student to find and curve: ";
+        std::getline(std::cin, studentName);
+        if (studentName.size() == 0) break;
 
+        auto foundStudent = grades.find(studentName);
+        if (foundStudent == grades.end())
+            std::cout << studentName << " is not in PG2 this month.\n";
+        else
+        {
+            float grade = foundStudent->second;
+            //grades[studentName] = grade *= 1.05;
+            foundStudent->second = grade * 1.05;
+            std::cout << studentName << " had a grade of " << grade << "!\n";
+            std::cout << "Now the grade is " << grades[studentName] << "!\n";
+        }
+    }
 
 
 
