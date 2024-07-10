@@ -11,6 +11,21 @@ enum class Weapon
     Sword, Axe, Spear, Mace
 };
 
+//return type: (index) int
+//parameters: the thing we're searching, the thing we're looking for
+int LinearSearch(std::vector<int> numbersToSearch, int searchNumber)
+{
+    int foundIndex = -1;//-1 means NOT FOUND
+    for (int i = 0; i < numbersToSearch.size(); i++)
+    {
+        if (searchNumber == numbersToSearch.at(i))
+        {
+            foundIndex = i;
+            break;
+        }
+    }
+    return foundIndex;
+}
 
 int main()
 {
@@ -35,8 +50,13 @@ int main()
 
     */
     std::vector<int> numbers = { 0,1,2,3,4,5,6 };
-    int searchNumber = 15;
-
+    int searchNumber = 6;
+    int index = LinearSearch(numbers, searchNumber);
+    if (index == -1)
+        std::cout << searchNumber << " is not found.\n";
+    else
+        std::cout << searchNumber << " was found at index " << index << "\n";
+    std::cin.get();
 
 
     /*
