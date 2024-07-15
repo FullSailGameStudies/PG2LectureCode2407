@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "Menu.h"
 
 
 /*              CLASSESS
@@ -44,18 +45,25 @@
 
 int main()
 {
+
+    int numberOfItems;
+    Menu kidsMenu;
+    kidsMenu.AddMenuItem("Nuggies", 8.99F);
+    kidsMenu.AddMenuItem("Cheese Pizza", 8.99F);
+    kidsMenu.ViewMenu();//call non-static methods on variables of the class
+    Menu::PrintSomeData();//call static methods on the class name
+
+    Menu dinnerMenu;
+    dinnerMenu.AddMenuItem("Double-Cheese Burger", 12.99F);
+    dinnerMenu.ViewMenu();
+    auto& items = dinnerMenu.MenuItems();
+    //items.push_back("Dino Nuggies", 19.99);
+
     /*
         Lecture code: add a Car class
     
     */
 
-    /*
-        CHALLENGE:
-
-            Create a Person class.
-            Right-Click the project and select "Add > Class..."
-
-    */
 
 
 
@@ -71,11 +79,6 @@ int main()
 
         Lecture code: add year, make, model fields to the car class
 
-    */
-
-    /*
-        CHALLENGE:
-            Add an age field and a name field to the Person class
     */
 
 
@@ -99,11 +102,6 @@ int main()
         Lecture code: add a vehicleInformation method
     */
 
-
-    /*
-        CHALLENGE:
-            write an ItsMyBirthday method. increment age and print out a happy message.
-    */
 
 
 
@@ -131,13 +129,6 @@ int main()
     */
 
 
-    /*
-
-        CHALLENGE:
-            Add Age getter/setter to provide access to the mAge field
-            Add a Name getter/setter for the mName field
-    */
-
 
 
 
@@ -162,10 +153,20 @@ int main()
     */
 
 
-    /*
 
+    /*
+        CHALLENGE:
+            Create a Person class.
+            Right-Click the project and select "Add > Class..."
+        CHALLENGE:
+            Add an age field and a name field to the Person class
+        CHALLENGE:
+            Add Age getter/setter to provide access to the mAge field
+            Add a Name getter/setter for the mName field
         CHALLENGE:
             Add a constructor to the Person class to initialize the age and name fields
+        CHALLENGE:
+            write an ItsMyBirthday method. increment age and print out a happy message.
     */
 
 
