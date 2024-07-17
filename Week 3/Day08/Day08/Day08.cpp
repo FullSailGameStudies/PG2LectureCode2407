@@ -6,17 +6,19 @@
 #include "Inheritance.h"
 #include "Polymorphism.h"
 #include "Car.h"
+#include "FlyingCar.h"
+#include "Pistol.h"
 
 
 int main()
 {
 	/*
-        ╔═══════════════╗
-        ║  Inheritance  ║
-        ╚═══════════════╝
+		╔═══════════════╗
+		║  Inheritance  ║
+		╚═══════════════╝
 
 								╔═════════╗     ╔══════════╗
-				         class  ║SomeClass║  :  ║OtherClass║
+						 class  ║SomeClass║  :  ║OtherClass║
 								╚═════════╝     ╚══════════╝
 									 │                │
 									 └──┐             └──┐
@@ -29,7 +31,7 @@ int main()
 				public inheritance:
 				protected inheritance:
 				private inheritance: (default if not specified)
-	
+
 
 
 				CONSTRUCTORS: the derived constructor must call a base constructor
@@ -37,31 +39,25 @@ int main()
 
 
 			Lecture Code: add a FlyingCar class that derives from Car
-             
-    */
 
-
-
-	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
-
-            add a new class, Pistol, that derives from Weapon.
-            Pistol should have fields with getters/setters for rounds and magCapacity.
-            Add a constructor that calls the base constructor
-	
 	*/
 
+	FlyingCar delorean(1983, "Delorean", "DMC-15", 1000, 150);//calling the default ctor
+	delorean.refuel();
+	delorean.refuel(15);//compile decision -- which one gets called?
+
+	Account savings1(10);
+	Account savings2(100);
+	savings1 = savings1 + savings2;
 
 
 
 
 
 	/*
-        ╔═════════════════════════════╗
-        ║  COMPILE-TIME Polymorphism  ║
-        ╚═════════════════════════════╝
+		╔═════════════════════════════╗
+		║  COMPILE-TIME Polymorphism  ║
+		╚═════════════════════════════╝
 
 		Method Overloading:
 			- changing the number of parameters
@@ -73,25 +69,14 @@ int main()
 
 
 
-	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
-
-			Add an OVERLOAD of the calcDamage method in the Weapon class.
-			The overload should take an int parameter called modifier
-			to increase the damage when calculating the damage.
-
-	*/
-
 
 
 
 
 	/*
-        ╔═════════════════════════════╗
-        ║  COMPILE-TIME Polymorphism  ║
-        ╚═════════════════════════════╝
+		╔═════════════════════════════╗
+		║  COMPILE-TIME Polymorphism  ║
+		╚═════════════════════════════╝
 
 		Operator Overloading
 
@@ -101,25 +86,14 @@ int main()
 
 
 
-	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
-
-		overload the + in the Pistol class to add 2 pistols
-			- it sets the magCapacity to the max of the 2 pistols
-			- adds the # of rounds from both pistols. should not exceed the magCapacity.
-	*/
-
-
 
 
 
 
 	/*
-        ╔════════════════════════╗
-        ║  RUNTIME Polymorphism  ║
-        ╚════════════════════════╝
+		╔════════════════════════╗
+		║  RUNTIME Polymorphism  ║
+		╚════════════════════════╝
 
 		╔═════════════╗
 		║ OVERRIDING  ║ - changing the behavior of a base method
@@ -141,14 +115,38 @@ int main()
 
 		Lecture Code: override the print method in the base/derived classes in the Polymorphism.h file
 
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
+
+		overload the + in the Pistol class to add 2 pistols
+			- it sets the magCapacity to the max of the 2 pistols
+			- adds the # of rounds from both pistols. should not exceed the magCapacity.
 	*/
 
 
 
 	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
+
+			add a new class, Pistol, that derives from Weapon.
+			Pistol should have fields with getters/setters for rounds and magCapacity.
+			Add a constructor that calls the base constructor
+
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
+
+			Add an OVERLOAD of the calcDamage method in the Weapon class.
+			The overload should take an int parameter called modifier
+			to increase the damage when calculating the damage.
+
+
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
 
 			Override Weapon's showMe method in the Pistol class.
 			In Pistol's version, call the base version then print out the rounds and magCapacity
@@ -156,6 +154,8 @@ int main()
 
 
 	*/
+	Pistol pewpew(50, 100, 10, 15);
+	pewpew.showMe();
 
 
 
