@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "Superhero.h"
 
 
 
@@ -159,4 +160,39 @@ int main()
     std::string multi = "Batman^Bruce Wayne^35#Superman^Clark Kent^25#Wonder Woman^Diana Prince^25#Aquaman^Arthur Curry^12";
     char collectionSeparator = '#';
     char objectSeparator = '^';
+
+
+    Superhero bats("Batman", "Bruce Wayne", 35);
+
+    //1) open the file
+    fileName = "superhero.csv";
+    fullPath = path + fileName;
+    std::ofstream heroFile(fullPath);
+
+    //2) write the hero
+    if (heroFile.is_open())
+        bats.Serialize(heroFile, '&');
+    else
+        std::cout << "The file could not be opened.\n";
+
+    //3) close the file
+    heroFile.close();
+
+
+    //1) open the file
+    std::ifstream heroInFile(fullPath);
+
+    //2) read the hero
+    if (heroInFile.is_open())
+    {
+        std::string csvData;
+        std::getline(heroInFile, csvData);//read the line
+        Superhero otherBat(csvData, '&');//pass the line to the constructor
+        otherBat.WhoAmI();
+    }
+    else
+        std::cout << "The file could not be opened.\n";
+
+    //3) close the file
+    heroFile.close();
 }
