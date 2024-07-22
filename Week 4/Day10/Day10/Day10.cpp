@@ -26,6 +26,9 @@ int main()
 {
     std::cout << "Hello PG2!\n";
 
+    std::string fileName = "PG2_2407.txt";
+    std::string path = "";// "C:\\temp\\2407\\";
+    std::string fullPath = path + fileName;
     /*
 
         ╔════════════════╗
@@ -49,6 +52,25 @@ int main()
         Lecture code: set a filePath variable, open an output file, write some csv data to it
     */
 
+    char delimiter = '*';
+
+    //1) open the file in output mode
+    std::ofstream outFile(fullPath);
+
+    //2) write to the file
+    if (outFile.is_open())
+    {
+        outFile <<
+            "I am Batman!" << delimiter <<
+            5 << delimiter <<
+            true << delimiter <<
+            13.7;
+    }
+    else
+        std::cout << path << " does not exists.\n";
+
+    //3) close the file
+    outFile.close();
 
     /*
 
@@ -63,6 +85,42 @@ int main()
         Lecture code: using the filePath variable, open an input file, use getline to read a line, print the line
     */
 
+    //1) open the file in READ mode
+    std::ifstream inFile(fullPath);
+
+    //2) read from the file
+    if (inFile.is_open())
+    {
+        std::string line;
+        std::getline(inFile, line, '\n');//reads until \n is encountered
+
+        //getline(stream, string, delimiter)
+        //stream - cin, ifstream, stringstream
+
+        //parsing the string to get the data
+        std::stringstream lineStream(line);
+        std::string data;
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+
+        std::getline(lineStream, data, delimiter);
+        int nummie = std::stoi(data);
+        std::cout << nummie << "\n";
+
+        std::getline(lineStream, data, delimiter);
+        bool bNummie = std::stoi(data) == 1;
+        std::cout << bNummie << "\n";
+
+        std::getline(lineStream, data, delimiter);
+        double dNummie = std::stod(data);
+        std::cout << dNummie << "\n";
+    }
+    else
+        std::cout << path << " does not exists.\n";
+     
+    
+    //3) close the file
+    inFile.close();
 
     /*
 
