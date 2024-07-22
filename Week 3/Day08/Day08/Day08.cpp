@@ -8,10 +8,21 @@
 #include "Car.h"
 #include "FlyingCar.h"
 #include "Pistol.h"
+#include <vector>
 
 
+void ShowNumber()
+{
+	static int i = 0;
+	std::cout << ++i << "\n";
+}
 int main()
 {
+	for (size_t i = 0; i < 10; i++)
+	{
+		ShowNumber();
+	}
+	std::cin.get();
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
@@ -45,13 +56,64 @@ int main()
 	FlyingCar delorean(1983, "Delorean", "DMC-15", 1000, 150);//calling the default ctor
 	delorean.refuel();
 	delorean.refuel(15);//compile decision -- which one gets called?
+	Car myOtherCar(1988, "Ford", "Mustang GT 5.0");
 
 	Account savings1(10);
 	Account savings2(100);
 	savings1 = savings1 + savings2;
 
 
+	std::vector<Car*> garage;
+	FlyingCar* myRide = &delorean;
+	FlyingCar* myRide2 = myRide;//copy the pointer
+	Car* myCurrentRide = &myOtherCar;
+	garage.push_back(myRide);
+	garage.push_back(myCurrentRide);
 
+	Car* heapCar = new Car(2024, "Tesla", "Cybertruck");
+	delete heapCar;//to clean up the heap
+	heapCar = nullptr;
+	if(heapCar != nullptr) {}
+
+	std::cout << "\nCOPY vs POINTER\n";
+	Car car   = delorean;//COPIES the car parts to car
+	std::cout << "COPY: " << car.vehicleInformation() << "\n";
+	//UPCAST
+	Car* pCar = &delorean;//POINTS pCar to a FlyingCar
+	std::cout << "PTR: " << pCar->vehicleInformation() << "\n\n";
+
+	garage.push_back(pCar);
+	std::cout << "\nJay's Garage\n";
+	for (auto carPtr : garage)
+	{
+		std::cout << carPtr->vehicleInformation() << "\n";
+	}
+
+
+	{
+		std::vector<std::unique_ptr<Car>> gsGarage;
+		std::unique_ptr<Car> uniqueHeap = std::make_unique<Car>(2024, "Tesla", "Cybertruck");
+
+		std::unique_ptr<Car> myHeapRide = std::move(uniqueHeap);//changes ownership of the pointer
+		if(uniqueHeap != nullptr)
+			uniqueHeap->refuel();
+
+		gsGarage.push_back(std::move(myHeapRide));
+		gsGarage.push_back(std::make_unique<FlyingCar>(1983, "Delorean", "DMC-15", 1000, 150));
+		std::cout << "\nG's Garage\n";
+		for (auto& uCar : gsGarage)
+		{
+			std::cout << uCar->vehicleInformation() << "\n";
+		}
+		std::cout << "\n\n";
+	}//uniqueHeap will be cleaned up here
+
+	int num = 5;
+	long bigNum = num;//implicit cast
+	float fNum = 5.F;
+	bigNum = (long)fNum;//explicit cast
+	std::string sNum = "5";
+	//bigNum = (long)sNum;
 
 
 	/*
